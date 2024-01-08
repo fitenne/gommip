@@ -81,6 +81,13 @@ func handleIp(ctx *gin.Context, rawIp string) {
 		return
 	}
 
+	if ip.IsPrivate() {
+		ctx.JSON(http.StatusOK, gin.H{
+			"msg": "you asked a private address",
+		})
+		return
+	}
+
 	if !ip.IsGlobalUnicast() {
 		ctx.JSON(http.StatusOK, gin.H{
 			"msg": "non-public address is not allowed",
