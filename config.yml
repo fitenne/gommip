@@ -1,0 +1,20 @@
+listen: ":8080"
+
+# check these headers for client ip.
+# useful when behind reverse-proxy.
+# be careful that these headers may come from untrusted source
+# and this service do NOT apply any check for the source.
+real_ip_header: [ "X-Forwarded-For", "X-Real-Ip" ] # in order of perference
+
+download:
+  dir: "/data/"
+  reload_gap: 336h
+  asn_url: "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb"
+  city_url: "https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-City.mmdb"
+
+log:
+  level: INFO
+  access: true
+  output:
+  - stdout
+  - /log
