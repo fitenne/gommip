@@ -140,7 +140,7 @@ func checkAndDownload(config *Config, force bool) error {
 		}
 		zap.S().Infoln("city db downloaded")
 	} else {
-		zap.S().Infoln("use existing city db")
+		zap.S().Warnln("use existing city db")
 	}
 	if !checkFile(asnDbPath) {
 		if err := tryDownload(config.AsnUrl, asnDbPath); err != nil {
@@ -148,13 +148,14 @@ func checkAndDownload(config *Config, force bool) error {
 		}
 		zap.S().Infoln("asn db downloaded")
 	} else {
-		zap.S().Infoln("use existing asn db")
+		zap.S().Warnln("use existing asn db")
 	}
 
 	return nil
 }
 
 func tryDownload(target string, saveTo string) error {
+	zap.S().Warnln("downloading", target, "to", saveTo)
 	if !strings.HasPrefix(target, "http") && !strings.HasPrefix(target, "https") {
 		return fmt.Errorf("download url scheme %v not supported", target)
 	}

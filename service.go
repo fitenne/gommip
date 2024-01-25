@@ -12,7 +12,7 @@ import (
 )
 
 type Server struct {
-	*gin.Engine
+	*http.Server
 }
 
 func zapAccessLogger(output string) gin.HandlerFunc {
@@ -141,7 +141,10 @@ func NewServer(config *Config) *Server {
 	})
 
 	return &Server{
-		Engine: server,
+		Server: &http.Server{
+			Addr:    config.Listen,
+			Handler: server,
+		},
 	}
 }
 
