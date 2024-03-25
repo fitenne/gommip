@@ -44,17 +44,62 @@ Date: Thu, 25 Jan 2024 16:43:15 GMT
         "ip": "1.1.1.1"
     }
 }
+> curl https://ip.foobar.one/version
+HTTP/1.1 200 OK
+Content-Length: 512
+Content-Type: application/json; charset=utf-8
+Date: Mon, 25 Mar 2024 13:39:57 GMT
+
+{
+    "asn": {
+        "BinaryFormatMajorVersion": 2,
+        "BinaryFormatMinorVersion": 0,
+        "BuildEpoch": 1710520257,
+        "DatabaseType": "GeoLite2-ASN",
+        "Description": {
+            "en": "GeoLite2 ASN database"
+        },
+        "IPVersion": 6,
+        "Languages": [
+            "en"
+        ],
+        "NodeCount": 1019957,
+        "RecordSize": 24
+    },
+    "city": {
+        "BinaryFormatMajorVersion": 2,
+        "BinaryFormatMinorVersion": 0,
+        "BuildEpoch": 1710543035,
+        "DatabaseType": "GeoLite2-City",
+        "Description": {
+            "en": "GeoLite2City database"
+        },
+        "IPVersion": 6,
+        "Languages": [
+            "de",
+            "en",
+            "es",
+            "fr",
+            "ja",
+            "pt-BR",
+            "ru",
+            "zh-CN"
+        ],
+        "NodeCount": 4372687,
+        "RecordSize": 28
+    }
+}
 ```
 
 ## container
 
-Run 
+Run the following command
 
 ```shell
 docker run --rm -v "$PWD":/usr/src/app -w /usr/src/app docker.io/library/golang:alpine go build -v
 ```
 
-To build inside the golang:alpine container which will produce a binrary
+to build inside the golang:alpine container which will produce a binrary file
 suitable for using with `docker build` to create a container image.
 
 ## tips

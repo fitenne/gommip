@@ -116,8 +116,16 @@ func NewServer(config *Config) *Server {
 		server.Use(zapAccessLogger(config.Log.Access))
 	}
 
-	server.GET("/health", func(ctx *gin.Context) {
-		ctx.String(http.StatusOK, "OK")
+	server.GET("/version", func(ctx *gin.Context) {
+		v, err := version()
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{
+				"msg": "error when reading db metadata",
+			})
+			return
+		}
+
+		ctx.JSON(http.StatusOK, v)
 	})
 
 	server.GET("/:ip", func(ctx *gin.Context) {

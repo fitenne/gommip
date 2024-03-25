@@ -43,6 +43,16 @@ func lookup(ip net.IP) (any, error) {
 	}, nil
 }
 
+func version() (any, error) {
+	db.locker.RLock()
+	defer db.locker.RUnlock()
+
+	return map[string]any{
+		"city": db.cityDb.Metadata,
+		"asn":  db.asnDb.Metadata,
+	}, nil
+}
+
 func prepareDb(config *Config) error {
 	if err := checkAndDownload(config, false); err != nil {
 		return fmt.Errorf("error when prepareDb: %t", err)
